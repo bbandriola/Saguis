@@ -2,8 +2,12 @@ use-conda: True
 
 # These resources will be applied to all rules. Can be overriden on a per-rule basis below.
 default-resources:
-  mem_mb: attempt *4000
-  mem_mb_reduced: (attempt * 4000) * 0.9 # Mem allocated to java for GATK rules (tries to prevent OOM errors)
+  mem_mb: attempt * 16000
+  mem_mb_reduced: (attempt * 16000) * 0.9
+  tmpdir: ./system_tmpdir
+#  slurm_partition: "pantanal"  # <-- change to your cluster's partition
+#  slurm_account: "mylab"  # <-- change this, or remove if not required
+#  runtime: 720  # in minutes
 
 # Control number of threads each rule will use.
 set-threads:
@@ -16,14 +20,14 @@ set-threads:
   create_db_intervals: 1
   picard_intervals: 1
   # Mappability
-  genmap: 7 # Can use more than 1 thread
+  genmap: 8 # Can use more than 1 thread
   mappability_bed: 1 # Does NOT use more than 1 thread
   # Fastq Processing. Can use more than 1 thread.
-  get_fastq_pe: 7 
-  fastp: 7
+  get_fastq_pe: 8
+  fastp: 8
   # Alignment. Can use more than 1 thread, except merge_bams.
-  bwa_map: 7
-  dedup: 7
+  bwa_map: 8
+  dedup: 8
   merge_bams: 1 # Does NOT use more than 1 thread.
   # GVCF 
   bam2gvcf: 2 # Should be run with no more than 2 threads.
@@ -36,7 +40,7 @@ set-threads:
   filterVcfs: 2 # Should be run with no more than 2 threads.
   sort_gatherVcfs: 2 # Should be run with no more than 2 threads.
   # Callable Bed
-  compute_d4: 7 # Can use more than 1 thread
+  compute_d4: 8 # Can use more than 1 thread
   create_cov_bed: 1 # Does NOT use more than 1 thread.
   merge_d4: 1 # Does NOT use more than 1 thread.
   # Summary Stats Does NOT use more than 1 thread.
