@@ -82,7 +82,7 @@ source /home/bruna.andriola/script.sh
 conda activate paleomix
 paleomix bam run --max-threads 24 --adapterremoval-max-threads 24 --bwa-max-threads 24 --jre-option=-Xmx10g --temp-root ./temp --destination ./ Paleomix_saguis1.yaml
 conda activate samtools
-for i in *bam; do samtools depth -a $i | awk '{c++; if($3>0) total+=1}END{print (total/c)*100}' > coverage_$i.txt; done
+for i in *bam; do samtools coverage $i > $i.stats; done
 
 ############# If running a sequential or openMP program
 
