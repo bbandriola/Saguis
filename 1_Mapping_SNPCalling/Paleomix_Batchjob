@@ -82,7 +82,39 @@ source /home/bruna.andriola/script.sh
 conda activate paleomix
 paleomix bam run --max-threads 24 --adapterremoval-max-threads 24 --bwa-max-threads 24 --jre-option=-Xmx10g --temp-root ./temp --destination ./ Paleomix_saguis1.yaml
 conda activate samtools
-samtools coverage -b bam.file --plot-depth
+samtools coverage -b LWG1TA2.Callithrixjacchus.bam
+samtools coverage -b LWG1TA3.Callithrixjacchus.bam
+samtools coverage -b LWG1TA4.Callithrixjacchus.bam
+samtools coverage -b LWG1TA5.Callithrixjacchus.bam
+samtools coverage -b LWG1TA6.Callithrixjacchus.bam
+samtools coverage -b LWG2TA1.Callithrixjacchus.bam
+samtools coverage -b LWG2TA2.Callithrixjacchus.bam
+samtools coverage -b LWG3TA3.Callithrixjacchus.bam
+samtools coverage -b LWG3TA4.Callithrixjacchus.bam
+samtools coverage -b LWG3TA5.Callithrixjacchus.bam
+samtools coverage -b LWG3TA6.Callithrixjacchus.bam
+samtools coverage -b LWG3TA7.Callithrixjacchus.bam
+samtools coverage -b LWG3TA8.Callithrixjacchus.bam
+samtools coverage -b LWG4TA1.Callithrixjacchus.bam
+samtools coverage -b LWG4TA2.Callithrixjacchus.bam
+samtools coverage -b LWG4TA3.Callithrixjacchus.bam
+samtools coverage -b LWG4TA4.Callithrixjacchus.bam
+samtools coverage -b LWG4TA5.Callithrixjacchus.bam
+samtools coverage -b SIG1TA1.Callithrixjacchus.bam
+samtools coverage -b SIG1TA2.Callithrixjacchus.bam
+samtools coverage -b SIG1TA3.Callithrixjacchus.bam
+samtools coverage -b SIG1TA4.Callithrixjacchus.bam
+samtools coverage -b SIG1TA5.Callithrixjacchus.bam
+samtools coverage -b SIG2TA1.Callithrixjacchus.bam
+samtools coverage -b SIG2TA2.Callithrixjacchus.bam
+samtools coverage -b SIG2TA3.Callithrixjacchus.bam
+samtools coverage -b SIG2TA4.Callithrixjacchus.bam
+samtools coverage -b SIG2TA5.Callithrixjacchus.bam
+samtools coverage -b SIG3TA1.Callithrixjacchus.bam
+samtools coverage -b SIG3TA2.Callithrixjacchus.bam
+samtools coverage -b SIG3TA3.Callithrixjacchus.bam
+samtools coverage -b SIG3TA4.Callithrixjacchus.bam
+samtools coverage -b SIG3TA5.Callithrixjacchus.bam
 
 ############# If running a sequential or openMP program
 
