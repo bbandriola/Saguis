@@ -79,9 +79,9 @@ echo ################
 ############# Command example, if using MPI
 
 conda activate bcftools
-bcftools mpileup -b bamlist_saguis -C50 -f /labgenomaarea/saguis-lucero/1_Mapping_SNPCalling/RefGenome/GCF_049354715.1_calJac240_pri/GCF_049354715.1_calJac240_pri_genomic.fasta -d 100 -Q30 -q30 --threads 7 -a FORMAT/AD,FORMAT/DP,INFO/AD -I | bcftools call -o RawBiallelic_Saguis_refcalJac.vcf.gz -Oz -f GQ,GP -m2 -M2 -v snps --threads 7
-bcftools norm -f /labgenomaarea/saguis-lucero/1_Mapping_SNPCalling/RefGenome/GCF_049354715.1_calJac240_pri/GCF_049354715.1_calJac240_pri_genomic.fasta -Oz -o Norm_RawBiallelic_Saguis_refcalJac.vcf.gz RawBiallelic_Saguis_refcalJac.vcf.gz 
-bcftools view 'F_MISSING = 0.0' -q 0.05:minor -Oz -o NoMissMAF0.05Norm_Biallelic_Saguis_refcalJac.vcf.gz Norm_RawBiallelic_Saguis_refcalJac.vcf.gz
+bcftools mpileup -b bamlist_saguis -C50 -f /labgenomaarea/saguis-lucero/1_Mapping_SNPCalling/RefGenome/GCF_049354715.1_calJac240_pri/GCF_049354715.1_calJac240_pri_genomic.fasta -d 100 -Q30 -q30 --threads 45 -a FORMAT/AD,FORMAT/DP,INFO/AD -I | bcftools call -o ./RawBiallelic_Saguis_refcalJac.vcf.gz -Oz -f GQ,GP -m2 -M2 -v snps --threads 7
+bcftools norm -f /labgenomaarea/saguis-lucero/1_Mapping_SNPCalling/RefGenome/GCF_049354715.1_calJac240_pri/GCF_049354715.1_calJac240_pri_genomic.fasta -Oz -o ./Norm_RawBiallelic_Saguis_refcalJac.vcf.gz ./RawBiallelic_Saguis_refcalJac.vcf.gz 
+bcftools view 'F_MISSING = 0.0' -q 0.05:minor -Oz -o ./NoMissMAF0.05Norm_Biallelic_Saguis_refcalJac.vcf.gz ./Norm_RawBiallelic_Saguis_refcalJac.vcf.gz
 
 ############# If running a sequential or openMP program
 
