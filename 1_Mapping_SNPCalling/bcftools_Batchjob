@@ -78,10 +78,11 @@ echo ################
 
 ############# Command example, if using MPI
 
+source /home/bruna.andriola/script.sh
 conda activate bcftools
-bcftools mpileup -b bamlist_saguis -C50 -f /labgenomaarea/saguis-lucero/1_Mapping_SNPCalling/RefGenome/GCF_049354715.1_calJac240_pri/GCF_049354715.1_calJac240_pri_genomic.fasta -d 100 -Q30 -q30 --threads 45 -a FORMAT/AD,FORMAT/DP,INFO/AD -I | bcftools call -o ./RawBiallelic_Saguis_refcalJac.vcf.gz -Oz -f GQ,GP -m2 -M2 -v snps --threads 7
+bcftools mpileup -b bamlist_saguis -C50 -f /labgenomaarea/saguis-lucero/1_Mapping_SNPCalling/RefGenome/GCF_049354715.1_calJac240_pri/GCF_049354715.1_calJac240_pri_genomic.fasta -d 40 -Q30 -q50 --threads 45 -a FORMAT/AD,FORMAT/DP,INFO/AD -I | bcftools call -o ./RawBiallelic_Saguis_refcalJac.vcf.gz -Oz -f GQ,GP -m2 -M2 -v --threads 45
 bcftools norm -f /labgenomaarea/saguis-lucero/1_Mapping_SNPCalling/RefGenome/GCF_049354715.1_calJac240_pri/GCF_049354715.1_calJac240_pri_genomic.fasta -Oz -o ./Norm_RawBiallelic_Saguis_refcalJac.vcf.gz ./RawBiallelic_Saguis_refcalJac.vcf.gz 
-bcftools view 'F_MISSING = 0.0' -q 0.05:minor -Oz -o ./NoMissMAF0.05Norm_Biallelic_Saguis_refcalJac.vcf.gz ./Norm_RawBiallelic_Saguis_refcalJac.vcf.gz
+bcftools view --include 'F_MISSING = 0.0' --exclude 'FORMAT/DP < 4' -q 0.1:minor --types snps --threads 45 -Oz -o ./NoMissMAF0.05Norm_MinDepthFilter_Biallelic_Saguis_refcalJac.vcf.gz ./Norm_RawBiallelic_Saguis_refcalJac.vcf.gz
 
 ############# If running a sequential or openMP program
 
