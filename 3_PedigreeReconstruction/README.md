@@ -7,7 +7,7 @@ This document describes the workflow used to reconstruct the pedigree of populat
 - Individual metadata including: ID, sex, birth year estimation 
 
 ### 1. Create new VCF files for each species
-In this case, we are using the VCF with the following filters: 
+In this case, we are using VCF with the filters listed below and retaining only individuals of a single species (LWGsamples.txt).
 - Biallelic sites only
 - Minimum genotype quality Q30
 - No missing genotypes
@@ -17,7 +17,6 @@ In this case, we are using the VCF with the following filters:
 - Thin 1 SNP every 50 kb
 
 ```
-vcftools --gzvcf 1SNPevery50kb_minDP15_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.recode.vcf.gz --keep SIGsamples.txt --recode --recode-INFO-all --out 1SNPevery50kb_minDP15_SIGsamples
 vcftools --gzvcf 1SNPevery50kb_minDP15_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.recode.vcf.gz --keep LWGsamples.txt --recode --recode-INFO-all --out 1SNPevery50kb_minDP15_LWGsamples 
 ```
 
