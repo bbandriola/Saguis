@@ -60,3 +60,14 @@ If you run on a cluster
 ```
 Rscript sequoia_LWG.R
 ```
+The output _pedigree_assigned_29Ksnps_LWG.csv_ contains:
+
+`id` — identifier of the individual (the offspring in that row). \
+`dam` — assigned mother (dam = female parent). Can be a real sampled ID or a "dummy" (e.g. F0001) when the mother wasn't genotyped but was inferred through sibship structure. \
+`sire` — assigned father (sire = male parent), same logic as dam. \
+`LLRdam` — Log-Likelihood Ratio for the mother assignment: compares the hypothesis "this is the real mother" against the best alternative hypothesis. The higher, the more confident the assignment. Appears only if you run CalcOHLLR(). \
+`LLRsire` — same, but for the father assignment. \
+`LLRpair` — joint LLR for the parent pair (mother + father together) as a trio, versus alternative hypotheses. \
+`OHdam` — number of loci with Opposing Homozygotes between the offspring and the assigned mother — i.e., sites where both are homozygous for different alleles, which is genetically incompatible with a real mother-offspring relationship (except through genotyping error). Low values (0–5) are what's expected and support a correct assignment. \
+`OHsire` — same, but for the father. \
+`MEpair` — Mendelian Errors for the full trio: number of loci where the offspring's genotype is genetically impossible given both parents' genotypes simultaneously. Since it involves three genotypes at once (mother + father + offspring), it tends to accumulate more error than OHdam/OHsire alone — especially with a higher assumed error rate (Err).
