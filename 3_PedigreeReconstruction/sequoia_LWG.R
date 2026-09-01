@@ -53,7 +53,7 @@ head(rownames(GenoM))
 # Optional: export genotype table
 sequoia_df <- data.frame(ID = rownames(GenoM), GenoM, check.names = FALSE)
 write.csv(sequoia_df,
-          file    = "sequoia_vcf_13Ksnps_LWG.csv",
+          file    = "sequoia_vcf_29Ksnps_LWG.csv",
           row.names = FALSE,
           quote   = FALSE)
 
@@ -64,11 +64,9 @@ write.csv(sequoia_df,
 CheckGeno(GenoM, Plot = TRUE)
 
 # Load life history table
-# Needs columns: ID, Sex (1=F,2=M,3=unk), BirthYear (or NA)
+# Needs columns: ID, Sex (1=F,2=M,3=unk), BirthYear (or NA), and optionally BY.min/BY.max
 life <- read_delim("lifehistory_LWG.csv", delim = "\t")
 life <- as.data.frame(life)
-life$BirthYear
-which(!life$BirthYear %in% as.integer(life$BirthYear) & !is.na(life$BirthYear))
 
 # Parent assignment only
 # Runs sequoia in parentage-assignment mode only: for each individual, it searches
@@ -79,7 +77,8 @@ ParOUT <- sequoia(
   GenoM        = GenoM,
   LifeHistData = life,
   Module       = "par",
-  Err          = 0.05
+  Err          = 0.05,
+  CalcLLR      = TRUE
 )
 
 # Full pedigree reconstruction
@@ -90,7 +89,8 @@ SeqOUT <- sequoia(
   GenoM        = GenoM,
   LifeHistData = life,
   Module       = "ped",
-  Err          = 0.05
+  Err          = 0.05,
+  CalcLLR      = TRUE
 )
 
 # Outputs
@@ -110,6 +110,6 @@ GetMaybeRel(
 )
 
 write.csv(SeqOUT$Pedigree,
-          file      = "pedigree_assigned_13Ksnps_LWG.csv",
+          file      = "pedigree_assigned_29Ksnps_LWG.csv",
           row.names = FALSE)
 
