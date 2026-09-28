@@ -1,0 +1,114 @@
+#!/bin/bash
+
+################-> are comments
+################-> "#SBATCH" (only one "#") are Batch Script commands
+
+################ Verbose mode
+
+#SBATCH --export=ALL
+
+################
+
+################ Change these parameters according to your requisites
+
+## nodes
+##SBATCH -N 1
+## or
+## tasks (threads)
+#SBATCH -n 1
+
+## time
+##SBATCH -t 96:00:00
+## time formats =  "minutes", "minutes:seconds", "hours:minutes:seconds", "days-hours", "days-hours:minutes" and "days-hours:minutes:seconds"
+
+## --exclusive alloc all threads from each node. If not set, it will alloc only threads set by "-n" parameter
+#SBATCH --exclusive
+
+################ Please, change this e-mail address to yours
+
+#SBATCH --mail-type=ALL
+#SBATCH --mail-user=bruna.andriola@edu.pucrs.br
+
+################
+
+#SBATCH --no-requeue
+
+################ Output options
+
+
+## %%     The character "%".
+## %A     Job array's master job allocation number.
+## %a     Job array ID (index) number.
+## %J     jobid.stepid of the running job. (e.g. "128.0")
+## %j     jobid of the running job.
+## %N     short hostname. This will create a separate IO file per node.
+## %n     Node identifier relative to current job (e.g. "0" is the first node of the running job) This will create  a  separate IO file per node.
+## %s     stepid of the running job.
+## %t     task identifier (rank) relative to current job. This will create a separate IO file per task.
+## %u     User name.
+## %x     Job name.
+
+## different files for normal output end error output
+##SBATCH -o %x.%j.out -e %x.%j.err
+## or
+## all output in same file
+#SBATCH -o %x.%j.out
+
+################
+
+################ Please, change this directory to your working dir.
+
+#SBATCH -D ./
+
+################
+
+################
+echo Running on host `hostname`
+echo
+echo Initial Time is `date`
+echo
+echo Directory is `pwd`
+echo
+echo This jobs runs on the following nodes:
+echo $SLURM_JOB_NODELIST
+echo
+echo JOB_ID:
+echo $SLURM_JOBID
+echo ################
+
+############# Command example, if using MPI
+
+source /home/bruna.andriola/script.sh
+conda activate bcftools
+bcftools view -s LWG1TA1,LWG1TA2,LWG1TA3,LWG1TA4,LWG1TA5,LWG1TA6,LWG2TA1,LWG2TA2,LWG2TA3,LWG3TA1,LWG3TA2,LWG3TA3,LWG3TA4,LWG3TA5,LWG3TA6,LWG3TA7,LWG3TA8,LWG4TA1,LWG4TA2,LWG4TA3,LWG4TA4,LWG4TA5 -Oz -o LW_1SNPevery10kb_minDP10_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.recode.vcf.gz 1SNPevery10kb_minDP10_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.recode.vcf.gz
+bcftools view -s SIG1TA1,SIG1TA2,SIG1TA3,SIG1TA4,SIG1TA5,SIG2TA1,SIG2TA2,SIG2TA3,SIG2TA4,SIG2TA5,SIG3TA1,SIG3TA2,SIG3TA3,SIG3TA4,SIG3TA5 -Oz -o SI_1SNPevery10kb_minDP10_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.recode.vcf.gz 1SNPevery10kb_minDP10_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.recode.vcf.gz
+source /home/bruna.andriola/script.sh
+conda activate plink
+plink --allow-extra-chr --out /labgenomaarea2/saguis-lucero/2_DataExploration/LW_1SNPevery10kb_minDP10_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac --double-id --pca --vcf /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/bcftools/LW_1SNPevery10kb_minDP10_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.recode.vcf.gz
+plink --allow-extra-chr --out /labgenomaarea2/saguis-lucero/2_DataExploration/SI_1SNPevery10kb_minDP10_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac --double-id --pca --vcf /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/bcftools/SI_1SNPevery10kb_minDP10_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.recode.vcf.gz
+#source /home/bruna.andriola/script.sh
+##conda activate R
+##Rscript /labgenomaarea2/saguis-lucero/2_DataExploration/plotPCA.r
+echo "starting Admixture..."
+source /home/bruna.andriola/script.sh
+conda activate vcftools
+vcftools --gzvcf /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/bcftools/LW_1SNPevery10kb_minDP10_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.recode.vcf.gz --out /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/bcftools/LW_1SNPevery10kb_minDP10_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac --plink
+vcftools --gzvcf /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/bcftools/SI_1SNPevery10kb_minDP10_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.recode.vcf.gz --out /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/bcftools/SI_1SNPevery10kb_minDP10_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac --plink
+source /home/bruna.andriola/script.sh
+conda activate plink
+plink --file /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/bcftools/LW_1SNPevery10kb_minDP10_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac --out /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/bcftools/LW_1SNPevery10kb_minDP10_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac --recode12
+plink --file /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/bcftools/SI_1SNPevery10kb_minDP10_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac --out /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/bcftools/SI_1SNPevery10kb_minDP10_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac --recode12
+source /home/bruna.andriola/script.sh
+conda activate admixture
+bash /labgenomaarea2/saguis-lucero/2_DataExploration/runAdxmiture_LW.sh 
+bash /labgenomaarea2/saguis-lucero/2_DataExploration/runAdxmiture_LW.sh 
+echo "done"
+
+
+############# If running a sequential or openMP program
+
+#./application
+
+################
+
+echo Final Time is `date`
