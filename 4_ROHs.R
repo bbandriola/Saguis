@@ -111,9 +111,9 @@ stacked_barplot <- summed_roh %>%
   theme(
     axis.text.x = element_text(hjust = 1),
     strip.text = element_text(angle = 90, size = 10),panel.grid.major.x = element_blank(),
-    panel.grid.minor = element_blank()
+    panel.grid.minor = element_blank(),axis.text.y = element_blank(),axis.ticks.y = element_blank(),legend.position = "left"
   ) +
-  scale_y_continuous(labels = scales::comma) +
+  scale_y_reverse(labels = scales::comma) +
   scale_fill_manual(values = roh_colors) +
   labs(
     x = "Sample",
@@ -122,4 +122,4 @@ stacked_barplot <- summed_roh %>%
   )+ coord_flip()
 # Print the plot
 print(stacked_barplot)
-ggsave("smallcategories_rohs_barplot.pdf", stacked_barplot, width = 8, height = 6, dpi = 300)
+ggsave("smallcategories_rohs_barplot.pdf", stacked_barplot, width = 6, height = 10, dpi = 300)
