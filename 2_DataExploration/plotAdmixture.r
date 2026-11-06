@@ -16,7 +16,7 @@ all_data <- tibble(sample=character(),
                    value=numeric())
 
 for (k in 1:6){
-  data <- read_delim(paste0("TI_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.",k,".Q"),
+  data <- read_delim(paste0("TI_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.",k,".Q"),
                   col_names = paste0("Q",seq(1:k)),
                   delim=" ")
   data$sample <- samplelist$sample
@@ -34,7 +34,7 @@ all_data %>%
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
   scale_fill_manual(values = c("#A94442"))
-ggsave("K1_TI_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.png", width = 14, height = 5)
+ggsave("K1_TI_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.png", width = 14, height = 5)
 
 all_data %>%
   filter(k == 2) %>%
@@ -44,7 +44,7 @@ all_data %>%
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
   scale_fill_manual(values = c("#A94442","#8B6F9E"))
-ggsave("K2_TI_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.png", width = 14, height = 5)
+ggsave("K2_TI_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.png", width = 14, height = 5)
 
 all_data %>%
   filter(k == 3) %>%
@@ -54,7 +54,7 @@ all_data %>%
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
   scale_fill_manual(values = c("#A94442","#8B6F9E","#D5A84B"))
-ggsave("K3_TI_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.png", width = 14, height = 5)
+ggsave("K3_TI_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.png", width = 14, height = 5)
 
 all_data %>%
   filter(k == 4) %>%
@@ -64,7 +64,7 @@ all_data %>%
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
   scale_fill_manual(values = c("#A94442","#8B6F9E","#D5A84B","#5B8063"))
-ggsave("K4_TI_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.png", width = 14, height = 5)
+ggsave("K4_TI_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.png", width = 14, height = 5)
 
 all_data %>%
   filter(k == 5) %>%
@@ -74,7 +74,7 @@ all_data %>%
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
   scale_fill_manual(values = c("#A94442","#8B6F9E","#D5A84B","#5B8063","#2E3B4E"))
-ggsave("K5_TI_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.png", width = 14, height = 5)
+ggsave("K5_TI_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.png", width = 14, height = 5)
 
 all_data %>%
   filter(k == 6) %>%
@@ -84,7 +84,7 @@ all_data %>%
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
   scale_fill_manual(values = c("#A94442","#8B6F9E","#D5A84B","#5B8063","#2E3B4E","#A94442"))
-ggsave("K6_TI_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.png", width = 14, height = 5)
+ggsave("K6_TI_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.png", width = 14, height = 5)
 
 ### species LW
 samplelist <- read_tsv("/labgenomaarea2/saguis-lucero/2_DataExploration/LW_popfile.txt",col_names = "sample")
@@ -94,7 +94,7 @@ all_data <- tibble(sample=character(),
                    value=numeric())
 
 for (k in 1:6){
-  data <- read_delim(paste0("LW_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.",k,".Q"),
+  data <- read_delim(paste0("LW_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.",k,".Q"),
                   col_names = paste0("Q",seq(1:k)),
                   delim=" ")
   data$sample <- samplelist$sample
@@ -112,7 +112,7 @@ all_data %>%
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
   scale_fill_manual(values = c("#A94442"))
-ggsave("K1_LW_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.png", width = 14, height = 5)
+ggsave("K1_LW_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.png", width = 14, height = 5)
 
 all_data %>%
   filter(k == 2) %>%
@@ -122,7 +122,7 @@ all_data %>%
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
   scale_fill_manual(values = c("#A94442","#8B6F9E"))
-ggsave("K2_LW_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.png", width = 14, height = 5)
+ggsave("K2_LW_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.png", width = 14, height = 5)
 
 all_data %>%
   filter(k == 3) %>%
@@ -132,7 +132,7 @@ all_data %>%
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
   scale_fill_manual(values = c("#A94442","#8B6F9E","#D5A84B"))
-ggsave("K3_LW_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.png", width = 14, height = 5)
+ggsave("K3_LW_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.png", width = 14, height = 5)
 
 all_data %>%
   filter(k == 4) %>%
@@ -142,7 +142,7 @@ all_data %>%
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
   scale_fill_manual(values = c("#A94442","#8B6F9E","#D5A84B","#5B8063"))
-ggsave("K4_LW_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.png", width = 14, height = 5)
+ggsave("K4_LW_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.png", width = 14, height = 5)
 
 all_data %>%
   filter(k == 5) %>%
@@ -152,7 +152,7 @@ all_data %>%
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
   scale_fill_manual(values = c("#A94442","#8B6F9E","#D5A84B","#5B8063","#2E3B4E"))
-ggsave("K5_LW_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.png", width = 14, height = 5)
+ggsave("K5_LW_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.png", width = 14, height = 5)
 
 all_data %>%
   filter(k == 6) %>%
@@ -162,4 +162,4 @@ all_data %>%
   theme_minimal() +
   theme(axis.text.x = element_text(angle = 60, hjust = 1)) +
   scale_fill_manual(values = c("#A94442","#8B6F9E","#D5A84B","#5B8063","#2E3B4E","#A94442"))
-ggsave("K6_LW_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.png", width = 14, height = 5)
+ggsave("K6_LW_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.png", width = 14, height = 5)
