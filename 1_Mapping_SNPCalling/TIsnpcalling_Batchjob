@@ -12,7 +12,7 @@
 ################ Change these parameters according to your requisites
 
 ## nodes
-#SBATCH -N 2
+#SBATCH -N 1
 ## or
 ## tasks (threads)
 ##SBATCH -n 10
@@ -87,27 +87,27 @@ bcftools norm -f /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/RefGenome/GC
 ###### FILTERING PART ######
 ############################
 ### Include only Autosomes
-conda activate vcftools
-vcftools --gzvcf TI_NormRawQq30d100_refcalJac.vcf.gz --chr NC_133502.1 --chr NC_133503.1 --chr NC_133504.1 --chr NC_133505.1 --chr NC_133506.1 --chr NC_133507.1 --chr NC_133508.1 --chr NC_133509.1 --chr NC_133510.1 --chr NC_133511.1 --chr NC_133512.1 --chr NC_133513.1 --chr NC_133514.1 --chr NC_133515.1 --chr NC_133516.1 --chr NC_133517.1 --chr NC_133518.1 --chr NC_133519.1 --chr NC_133520.1 --chr NC_133521.1 --chr NC_133522.1 --chr NC_133523.--recode --out TI_OnlyAut_NormRawQq30d100_refcalJac
-gzip TI_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf
+conda activate bcftools
+bcftools index --threads 48 TI_NormRawQq30d100_refcalJac.vcf.gz
+bcftools view -R Autchr.txt --threads 48 -Oz -o TI_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz TI_NormRawQq30d100_refcalJac.vcf.gz
 ### FILTERINF FOR: min and maxDP, quality and bialelic only
 conda activate bcftools
-bcftools view --include 'F_MISSING = 0.0 && QUAL > 30' --types snps -m2 -M2 --threads 48 -Oz -o TI_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz TI_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz
-bcftools view --include 'F_MISSING = 0.3 && QUAL > 30' --types snps -m2 -M2 --threads 48 -Oz -o TI_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz TI_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz
+bcftools filter -S . -e 'FMT/DP<10 || FMT/DP>40' --threads 48 TI_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz -Ou | bcftools view --include 'F_MISSING = 0.0 && QUAL > 30' --types snps -m2 -M2 --threads 48 -Oz -o TI_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz
+bcftools filter -S . -e 'FMT/DP<10 || FMT/DP>40' --threads 48 TI_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz -Ou | bcftools view --include 'F_MISSING < 0.3 && QUAL > 30' --types snps -m2 -M2 --threads 48 -Oz -o TI_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz
 ### FILTERINF FOR: hwe, maf
 conda activate vcftools
-vcftools --gzvcf TI_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz --hwe 0.001 --maf 0.05 --recode --out TI_hwe0.001maf0.05_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac  
-vcftools --gzvcf TI_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz --hwe 0.001 --maf 0.05 --recode --out TI_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac  
-vcftools --gzvcf TI_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz --hwe 0.001 --maf 0.1 --recode --out TI_hwe0.001maf0.1_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac
-gzip TI_hwe0.001maf0.05_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.gz
-gzip TI_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.gz
-gzip TI_hwe0.001maf0.1_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.gz
+vcftools --gzvcf TI_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz --hwe 0.001 --maf 0.05 --recode --recode-INFO-all --out TI_hwe0.001maf0.05_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac  
+vcftools --gzvcf TI_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz --hwe 0.001 --maf 0.05 --recode --recode-INFO-all --out TI_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac  
+vcftools --gzvcf TI_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz --hwe 0.001 --maf 0.1 --recode --recode-INFO-all --out TI_hwe0.001maf0.1_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac
+gzip TI_hwe0.001maf0.05_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf
+gzip TI_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf
+gzip TI_hwe0.001maf0.1_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf
 ###### FILTERINF FOR: LD
-vcftools --gzvcf TI_hwe0.001maf0.05_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.gz --thin 10000 --recode --out TI_1SNPevery10kb_hwe0.001maf0.1_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac
-vcftools --gzvcf TI_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.gz --thin 10000 --recode --out TI_1SNPevery10kb_hwe0.001maf0.1_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac
-vcftools --gzvcf TI_hwe0.001maf0.1_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.gz --thin 10000 --recode --out TI_1SNPevery10kb_hwe0.001maf0.1_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac
-gzip TI_1SNPevery10kb_hwe0.001maf0.1_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf
-gzip TI_1SNPevery10kb_hwe0.001maf0.1_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf
+vcftools --gzvcf TI_hwe0.001maf0.05_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz --thin 10000 --recode --recode-INFO-all --out TI_1SNPevery10kb_hwe0.001maf0.05_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac
+vcftools --gzvcf TI_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz --thin 10000 --recode --recode-INFO-all --out TI_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac
+vcftools --gzvcf TI_hwe0.001maf0.1_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz --thin 10000 --recode --recode-INFO-all --out TI_1SNPevery10kb_hwe0.001maf0.1_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac
+gzip TI_1SNPevery10kb_hwe0.001maf0.05_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf
+gzip TI_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf
 gzip TI_1SNPevery10kb_hwe0.001maf0.1_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf
 
 ################
