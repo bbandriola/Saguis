@@ -1,27 +1,15 @@
-library(readr)
-library(tibble)
-library(ggplot2)
-library(ggrepel)
-library(RColorBrewer)
-library(tidyr)
-
-setwd("./")
-base_name <- "LW_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac"
-
-pca <- read_table(paste0(base_name, ".eigenvec"), col_names = FALSE)
-eigenval <- scan(paste0(base_name, ".eigenval"))
-
-names(pca)[1:ncol(pca)] <- paste0("Ind")
-names(pca)[2:ncol(pca)] <- paste0("Lineages")
-names(pca)[3:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-1))
-# # names(pca)[2] <- paste0("Lineages")
-
-pve <- data.frame(PC = 1:15, pve = eigenval/sum(eigenval)*100)
-# percentage of variance
-pdf(paste0(base_name, ".PCvariance.pdf"),width = 10,height = 6)
-a <- ggplot(pve, aes(PC, pve)) + geom_bar(stat = "identity")
-a + ylab("Percentage variance explained") + theme_light()
-dev.off()
+library(readr)                                       
+library(tibble)                                                                                                                                              library(ggplot2)                                     
+library(ggrepel)                                                                                                                                             library(RColorBrewer)                                
+library(tidyr)                                                                                                                                                                                                    
+setwd("./")                                                                                                                                                  base_name <- "LW_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac"
+                                                                                                                                                             pca <- read_table(paste0(base_name, ".eigenvec"), col_names = FALSE)
+eigenval <- scan(paste0(base_name, ".eigenval"))                                                                                                                                                                  
+names(pca)[1:2] <- c("Ind", "Sample2")                                                                                                                       names(pca)[3:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-1))
+pca$Lineages <- sub("^.*G([0-9]+).*$", "G\\1", pca$Sample2)                                                                                                                                                       
+pve <- data.frame(PC = 1:15, pve = eigenval/sum(eigenval)*100)                                                                                               # percentage of variance                             
+pdf(paste0(base_name, ".PCvariance.pdf"),width = 10,height = 6)                                                                                              a <- ggplot(pve, aes(PC, pve)) + geom_bar(stat = "identity")
+a + ylab("Percentage variance explained") + theme_light()                                                                                                    dev.off()                                            
 # calculate the cumulative sum of the percentage variance explained
 cumsum(pve$pve)
 
@@ -47,15 +35,15 @@ b + xlab(paste0("PC1(", signif(pve$pve[1], 3), "%)")) +
 dev.off()
 
 ######################################
-base_name <- "TI_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac"
+setwd("./")
+base_name <- "TI_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac"
 
 pca <- read_table(paste0(base_name, ".eigenvec"), col_names = FALSE)
 eigenval <- scan(paste0(base_name, ".eigenval"))
 
-names(pca)[1:ncol(pca)] <- paste0("Ind")
-names(pca)[2:ncol(pca)] <- paste0("Lineages")
+names(pca)[1:2] <- c("Ind", "Sample2")
 names(pca)[3:ncol(pca)] <- paste0("PC", 1:(ncol(pca)-1))
-# # names(pca)[2] <- paste0("Lineages")
+pca$Lineages <- sub("^.*G([0-9]+).*$", "G\\1", pca$Sample2)
 
 pve <- data.frame(PC = 1:15, pve = eigenval/sum(eigenval)*100)
 # percentage of variance
