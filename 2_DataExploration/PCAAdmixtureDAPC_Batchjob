@@ -81,29 +81,30 @@ echo ################
 echo "Starting with PCA generation"
 source /home/bruna.andriola/script.sh
 conda activate plink
-plink --allow-extra-chr --out /labgenomaarea2/saguis-lucero/2_DataExploration/LW_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac --double-id --pca --vcf /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/bcftools/LW_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.recode.vcf.gz
-plink --allow-extra-chr --out /labgenomaarea2/saguis-lucero/2_DataExploration/TI_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac --double-id --pca --vcf /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/bcftools/TI_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.recode.vcf.gz
+plink --allow-extra-chr --out /labgenomaarea2/saguis-lucero/2_DataExploration/LW_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac --double-id --pca --vcf /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/bcftools/rightversions/LW_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz
+plink --allow-extra-chr --out /labgenomaarea2/saguis-lucero/2_DataExploration/TI_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac --double-id --pca --vcf /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/bcftools/rightversions/TI_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz
 echo "Plotting PCAs"
 conda activate R
 Rscript /labgenomaarea2/saguis-lucero/2_DataExploration/plotPCA.r
 echo "Producing Admixture input with vcftools..."
 conda activate vcftools
-vcftools --gzvcf /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/bcftools/LW_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.recode.vcf.gz --out /labgenomaarea2/saguis-lucero/2_DataExploration/LW_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac --plink
-vcftools --gzvcf /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/bcftools/TI_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.recode.vcf.gz --out /labgenomaarea2/saguis-lucero/2_DataExploration/TI_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac --plink
+vcftools --gzvcf /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/bcftools/LW_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz --out /labgenomaarea2/saguis-lucero/2_DataExploration/LW_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac --plink
+vcftools --gzvcf /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/bcftools/TI_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz --out /labgenomaarea2/saguis-lucero/2_DataExploration/TI_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac --plink
 echo "Generating PLINK files for Admixtools"
 conda activate plink
-plink --file /labgenomaarea2/saguis-lucero/2_DataExploration/LW_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac --out /labgenomaarea2/saguis-lucero/2_DataExploration/LW_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac --recode12
-plink --file /labgenomaarea2/saguis-lucero/2_DataExploration/TI_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac --out /labgenomaarea2/saguis-lucero/2_DataExploration/TI_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac --recode12
+plink --file /labgenomaarea2/saguis-lucero/2_DataExploration/LW_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac --out /labgenomaarea2/saguis-lucero/2_DataExploration/LW_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac --recode12
+plink --file /labgenomaarea2/saguis-lucero/2_DataExploration/TI_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac --out /labgenomaarea2/saguis-lucero/2_DataExploration/TI_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac --recode12
 echo "Starting Admixture analysis"
 conda activate admixture
 bash /labgenomaarea2/saguis-lucero/2_DataExploration/runAdxmiture_LW.sh
-#bash /labgenomaarea2/saguis-lucero/2_DataExploration/runAdxmiture_SI.sh
+bash /labgenomaarea2/saguis-lucero/2_DataExploration/runAdxmiture_SI.sh
 echo "done, now PLOT Admixture"
 conda activate R
 Rscript /labgenomaarea2/saguis-lucero/2_DataExploration/plotAdmixture.r
 echo "done ploting Admixture. Now running DAPC"
-Rscript DAPC.R --vcf /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/bcftools/LW_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.recode.vcf.gz --pop ./LW_popfile.txt --max_K 6 --out ./DAPC_LW
-Rscript DAPC.R --vcf /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/bcftools/TI_HWE001_1SNPevery10kb_minDP13_OnlyAut_NoMissMAF0.05Norm_MinDepthFilter_BiallelicQq30_Saguis_refcalJac.recode.vcf.gz --pop ./TI_popfile.txt --max_K 6 --out ./DAPC_TI
+#conda activate DAPC
+#Rscript DAPC.R --vcf /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/bcftools/LW_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz --pop ./LW_popfile.txt --max_K 6 --out ./DAPC_LW
+#Rscript DAPC.R --vcf /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/bcftools/TI_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz --pop ./TI_popfile.txt --max_K 6 --out ./DAPC_TI
 echo "EVERYTHING IS DONE"
 
 ############# If running a sequential or openMP program
