@@ -109,7 +109,7 @@ vcftools --gzvcf TI_hwe0.001maf0.1_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_
 gzip TI_1SNPevery10kb_hwe0.001maf0.05_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf
 gzip TI_1SNPevery10kb_hwe0.001maf0.05_Missing30OnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf
 gzip TI_1SNPevery10kb_hwe0.001maf0.1_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf
-## EXtra filtering for kin analyses
+###### Extra filtering for kin analysis
 vcftools --gzvcf TI_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz --maf 0.1 --recode --recode-INFO-all --stdout | vcftools --vcf - --thin 10000 --recode --recode-INFO-all --out TI_1SNPevery10kb_maf0.1_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz
 vcftools --gzvcf TI_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz --maf 0.3 --recode --recode-INFO-all --stdout | vcftools --vcf - --thin 10000 --recode --recode-INFO-all --out TI_1SNPevery10kb_maf0.3_NoMissingOnlyBialelicsQuali30_minDP10maxDP40_OnlyAut_NormRawQq30d100_refcalJac.recode.vcf.gz
 
