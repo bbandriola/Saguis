@@ -83,11 +83,13 @@ source /home/bruna.andriola/script.sh
 conda activate angsd
 angsd -b LWbamlist_saguis -ref /labgenomaarea2/saguis-lucero/1_Mapping_SNPCalling/RefGenome/GCF_049354715.1_calJac240_pri/GCF_049354715.1_calJac240_pri_genomic.fasta -uniqueOnly 1 -remove_bads 1 -only_proper_pairs 1 -C 50 -baq 1 -setMinDepthInd 4 -setMaxDepthInd 40 -doCounts 1 -GL 2 -doMajorMinor 1 -SNP_pval 1e-3 -doGeno 32 -doGlf 2 -doPost 1 -doPlink 2 -doMaf 1 -minMaf 0.1 -nThreads 24 -out LW_ANGSD_MinDind4Max40maf01_refcalJac
 
-##### Filtering for HET/ROHs
+##### Generate VCF
+conda activate plink
+plink --tfile LW_ANGSD_MinDind4Max40maf01_refcalJac --recode vcf --allow-extra-chr --out LW_ANGSD_MinDind4Max40maf01_refcalJac
 
-##### Filtering for LIN
-
-
+##### Calculate TSV
+conda activate vcftools
+vcftools --vcf LW_ANGSD_MinDind4Max40maf01_refcalJac.recode.vcf –TsTv 1000
 
 ################
 
